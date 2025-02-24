@@ -13,16 +13,20 @@ function randomArrayIndex(array) {
 
 function createStudentCouples(studentsArray) {
     const arrayCouples = [];
-    while (studentsArray.length > 0) {
-        let index = randomArrayIndex(studentsArray);
-        let couple = [];
-        couple.push(studentsArray[index].name);
-        studentsArray = betterSplice(studentsArray, index, 1);
-        index = randomArrayIndex(studentsArray);
-        couple.push(studentsArray[index].name);
-        studentsArray = betterSplice(studentsArray, index, 1);
-        arrayCouples.push(couple);
+
+    if(studentsArray.length % 2 === 0){
+        while (studentsArray.length > 0) {
+            let index = randomArrayIndex(studentsArray);
+            let couple = [];
+            couple.push(studentsArray[index].name);
+            studentsArray = betterSplice(studentsArray, index, 1);
+            index = randomArrayIndex(studentsArray);
+            couple.push(studentsArray[index].name);
+            studentsArray = betterSplice(studentsArray, index, 1);
+            arrayCouples.push(couple);
+        }
     }
+    
     return arrayCouples;
 }
 
