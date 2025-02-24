@@ -15,7 +15,7 @@ function createStudentCouples(studentsArray) {
     const arrayCouples = [];
 
     if(studentsArray.length % 2 === 0){
-        while (studentsArray.length > 0) {
+        while (studentsArray.length > 1) {
             let index = randomArrayIndex(studentsArray);
             let couple = [];
             couple.push(studentsArray[index].name);
