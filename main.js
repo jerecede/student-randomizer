@@ -1,4 +1,6 @@
 const fs = require('fs');
+//libreria di node deve essere richiesta, require
+//tramite varibile fs chiameremo i metodi
 
 function betterSplice(array, index = 0, removals = 1) {
     const newArray = [...array];
@@ -12,17 +14,21 @@ function randomArrayIndex(array) {
 }
 
 function createStudentCouples(studentsArray) {
+    let clone = [...studentsArray];
     const arrayCouples = [];
 
-    if(studentsArray.length % 2 === 0){
-        while (studentsArray.length > 1) {
-            let index = randomArrayIndex(studentsArray);
+    if(clone.length % 2 === 0){
+        while (clone.length > 0) {
             let couple = [];
-            couple.push(studentsArray[index].name);
-            studentsArray = betterSplice(studentsArray, index, 1);
-            index = randomArrayIndex(studentsArray);
-            couple.push(studentsArray[index].name);
-            studentsArray = betterSplice(studentsArray, index, 1);
+
+            let index = randomArrayIndex(clone);
+            couple.push(clone[index].name);
+            clone = betterSplice(clone, index, 1);
+
+            index = randomArrayIndex(clone);
+            couple.push(clone[index].name);
+            clone = betterSplice(clone, index, 1);
+
             arrayCouples.push(couple);
         }
     }
@@ -34,19 +40,19 @@ function printStudentCouples(studentCouples){
     let studentCouplesString = "";
     for (let i = 0; i < studentCouples.length; i++) {
         const couple = studentCouples[i];
-        studentCouplesString += `${i+1}) ${couple[0]} - ${couple[1]} \n`       
+        studentCouplesString += `${i+1}) ${couple[0]} - ${couple[1]} \n`;
     }
     return studentCouplesString;
 }
 
-function getStudentsFromJsonFile(filePath) {
-    const stringJSON = fs.readFileSync(filePath, 'utf8');
+function getStudentsFromJsonFile(filename) {
+    const stringJSON = fs.readFileSync('./' + filename, 'utf8');
     return JSON.parse(stringJSON);
-}
+} //asincrono legge tutto il file, default asincrono
 
 //student randomizer
 function main() {
-    // //0:recupera le informazioni degli studenti dal file students.json
+    //0:recupera le informazioni degli studenti dal file students.json
     const allStudents = getStudentsFromJsonFile("students.json");
     console.log(allStudents);
     //1: dall'array di studenti estrai un array di coppie di studenti
